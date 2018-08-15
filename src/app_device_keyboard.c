@@ -25,11 +25,15 @@ please contact mla_licensing@microchip.com
 #include <stdint.h>
 #include <string.h>
 
+#include "mcc.h"
+
 #include "usb.h"
 #include "usb_device_hid.h"
 
 #include "app_button_matrix.h"
 #include "app_page_selector.h"
+
+#include "eeprom.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -243,54 +247,6 @@ static KEYBOARD_INPUT_REPORT inputReport KEYBOARD_INPUT_REPORT_DATA_BUFFER_ADDRE
 static volatile KEYBOARD_OUTPUT_REPORT outputReport KEYBOARD_OUTPUT_REPORT_DATA_BUFFER_ADDRESS_TAG;
 
 static uint8_t emptyReport[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-static uint8_t storedReports[APP_PAGE_COUNT][APP_BUTTON_MATRIX_SIZE][8] = {
-    {
-        {0x40, 0, 0xe6, 0x56, 0, 0, 0, 0 }, // alt -
-        {0x40, 0, 0xe6, 0x57, 0, 0, 0, 0 }, // alt +
-        {0, 0, 0x1b, 0, 0, 0, 0, 0 }, // x
-        {0, 0, 0x2f, 0, 0, 0, 0, 0 }, //[
-        {0, 0, 0x30, 0, 0, 0, 0, 0 }, // ]
-        {0x04, 0, 0xe2, 0, 0, 0, 0, 0 }, // alt 
-        {0, 0, 0x5, 0, 0, 0, 0, 0 }, // b
-        {0, 0, 0xd, 0, 0, 0, 0, 0 }, // j               
-        {0, 0, 0x16, 0, 0, 0, 0, 0 }, // s            
-    },
-    {
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },   
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },  
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-    },
-    {
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },   
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 }, 
-        {0, 0, 0, 0, 0, 0, 0, 0 },                
-    },
-    {
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },   
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0 },                
-    }
-};
-
-
 
 // *****************************************************************************
 // *****************************************************************************
@@ -299,18 +255,13 @@ static uint8_t storedReports[APP_PAGE_COUNT][APP_BUTTON_MATRIX_SIZE][8] = {
 // *****************************************************************************
 static void APP_KeyboardProcessOutputReport(void);
 
-
 //Exteranl variables declared in other .c files
 extern volatile signed int SOFCounter;
-
 
 //Application variables that need wide scope
 signed int keyboardIdleRate;
 signed int LocalSOFCount;
 static signed int OldSOFCount;
-
-
-
 
 // *****************************************************************************
 // *****************************************************************************
@@ -318,12 +269,15 @@ static signed int OldSOFCount;
 // *****************************************************************************
 // *****************************************************************************
 
-static uint8_t* APP_KeyboardGetReport() {
+static void APP_KeyboardUpdateInputReport() {
+    uint8_t* _input = (uint8_t *)&inputReport;
+    
     if (keyboard.keyIndex < 0) {
-        return emptyReport;
+        memcpy(_input, emptyReport, sizeof(inputReport));
     } else {
-        return storedReports[APP_PageSelectorGetIndex()][(uint8_t) keyboard.keyIndex];
-    }
+        EEPROM_Read(&_input[1], (uint8_t)((APP_PageSelectorGetIndex() * 9) + keyboard.keyIndex * 7)), 7);
+        _input[0] = _input[1]; _input[1] = 0x00;
+    }    
 }
 
 void APP_KeyboardInit(void)
@@ -437,8 +391,8 @@ void APP_KeyboardTasks(void)
             //infinite idle rate setting.
             keyboard.oldKeyIndex = keyboard.keyIndex;
             
-            memcpy(&inputReport, APP_KeyboardGetReport(), sizeof(inputReport));
-
+            APP_KeyboardUpdateInputReport();
+                    
             /* Send the 8 byte packet over USB to the host. */
             keyboard.lastINTransmission = HIDTxPacket(HID_EP, (uint8_t*)&inputReport, sizeof(inputReport));
             OldSOFCount = LocalSOFCount;    //Save the current time, so we know when to send the next packet (which depends in part on the idle rate setting)

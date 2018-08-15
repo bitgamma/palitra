@@ -46,16 +46,12 @@
 
 #include "mcc.h"
 
-
-void SYSTEM_Initialize(void)
-{
-
+void SYSTEM_Initialize(void) {
     PIN_MANAGER_Initialize();
     OSCILLATOR_Initialize();
 }
 
-void OSCILLATOR_Initialize(void)
-{
+void OSCILLATOR_Initialize(void) {
     // SCS0 FOSC; IDLEN disabled; IRCF 1MHz_HF; 
     OSCCON = 0x30;
     // LFIOFS not stable; PRI_SD ON; HFIOFL not locked; 
@@ -63,8 +59,3 @@ void OSCILLATOR_Initialize(void)
     // INTSRC INTRC; SPLLEN disabled; TUN 0; 
     OSCTUNE = 0x00;
 }
-
-
-/**
- End of File
-*/

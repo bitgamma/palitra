@@ -83,7 +83,9 @@ please contact mla_licensing@microchip.com
 //#define USB_SPEED_OPTION USB_LOW_SPEED //(this mode is only supported on some microcontrollers)
 
 #define MY_VID 0x1209
-#define MY_PID 0x0BAD
+#define MY_PID 0x0BAB
+
+#define self_power 0
 
 //------------------------------------------------------------------------------------------------------------------
 //Option to enable auto-arming of the status stage of control transfers, if no

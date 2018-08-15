@@ -86,8 +86,6 @@ bool USER_USB_CALLBACK_EVENT_HANDLER(USB_EVENT event, void *pdata, uint16_t size
             break;
 
         case EVENT_CONFIGURED:
-            /* When the device is configured, we can (re)initialize the keyboard
-             * demo code. */
             APP_KeyboardInit();
             break;
 
@@ -95,8 +93,6 @@ bool USER_USB_CALLBACK_EVENT_HANDLER(USB_EVENT event, void *pdata, uint16_t size
             break;
 
         case EVENT_EP0_REQUEST:
-            /* We have received a non-standard USB request.  The HID driver
-             * needs to check to see if the request was for it. */
             USBCheckHIDRequest();
             break;
 

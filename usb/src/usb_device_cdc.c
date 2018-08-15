@@ -45,6 +45,8 @@ please contact mla_licensing@microchip.com
 ********************************************************************/
 
 /** I N C L U D E S **********************************************************/
+#include "mcc.h"
+
 #include "usb.h"
 #include "usb_device_cdc.h"
 

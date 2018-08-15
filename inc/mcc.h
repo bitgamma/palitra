@@ -51,8 +51,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define _XTAL_FREQ  48000000
+#include "fixed_address_memory.h"
 
+#include "usb_config.h"
+
+#define _XTAL_FREQ  48000000
 
 /**
  * @Param

@@ -14,6 +14,7 @@
         <itemPath>inc/pin_manager.h</itemPath>
         <itemPath>inc/system_config.h</itemPath>
         <itemPath>inc/usb_config.h</itemPath>
+        <itemPath>inc/eeprom.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="usb" projectFiles="true">
         <itemPath>usb/inc/usb.h</itemPath>
@@ -50,6 +51,7 @@
         <itemPath>src/device_config.c</itemPath>
         <itemPath>src/mcc.c</itemPath>
         <itemPath>src/pin_manager.c</itemPath>
+        <itemPath>src/eeprom.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="usb" projectFiles="true">
         <itemPath>usb/src/usb_device.c</itemPath>

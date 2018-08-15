@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=src/app_device_keyboard.c src/main.c src/usb_descriptors.c src/usb_events.c usb/src/app_button_matrix.c usb/src/app_page_selector.c usb/src/usb_device.c usb/src/usb_device_cdc.c usb/src/usb_device_generic.c usb/src/usb_device_hid.c src/device_config.c src/mcc.c src/pin_manager.c
+SOURCEFILES_QUOTED_IF_SPACED=src/app_device_keyboard.c src/main.c src/usb_descriptors.c src/usb_events.c usb/src/app_button_matrix.c usb/src/app_page_selector.c usb/src/usb_device.c usb/src/usb_device_cdc.c usb/src/usb_device_generic.c usb/src/usb_device_hid.c src/device_config.c src/mcc.c src/pin_manager.c src/eeprom.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/app_device_keyboard.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/usb_descriptors.p1 ${OBJECTDIR}/src/usb_events.p1 ${OBJECTDIR}/usb/src/app_button_matrix.p1 ${OBJECTDIR}/usb/src/app_page_selector.p1 ${OBJECTDIR}/usb/src/usb_device.p1 ${OBJECTDIR}/usb/src/usb_device_cdc.p1 ${OBJECTDIR}/usb/src/usb_device_generic.p1 ${OBJECTDIR}/usb/src/usb_device_hid.p1 ${OBJECTDIR}/src/device_config.p1 ${OBJECTDIR}/src/mcc.p1 ${OBJECTDIR}/src/pin_manager.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/src/app_device_keyboard.p1.d ${OBJECTDIR}/src/main.p1.d ${OBJECTDIR}/src/usb_descriptors.p1.d ${OBJECTDIR}/src/usb_events.p1.d ${OBJECTDIR}/usb/src/app_button_matrix.p1.d ${OBJECTDIR}/usb/src/app_page_selector.p1.d ${OBJECTDIR}/usb/src/usb_device.p1.d ${OBJECTDIR}/usb/src/usb_device_cdc.p1.d ${OBJECTDIR}/usb/src/usb_device_generic.p1.d ${OBJECTDIR}/usb/src/usb_device_hid.p1.d ${OBJECTDIR}/src/device_config.p1.d ${OBJECTDIR}/src/mcc.p1.d ${OBJECTDIR}/src/pin_manager.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/app_device_keyboard.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/usb_descriptors.p1 ${OBJECTDIR}/src/usb_events.p1 ${OBJECTDIR}/usb/src/app_button_matrix.p1 ${OBJECTDIR}/usb/src/app_page_selector.p1 ${OBJECTDIR}/usb/src/usb_device.p1 ${OBJECTDIR}/usb/src/usb_device_cdc.p1 ${OBJECTDIR}/usb/src/usb_device_generic.p1 ${OBJECTDIR}/usb/src/usb_device_hid.p1 ${OBJECTDIR}/src/device_config.p1 ${OBJECTDIR}/src/mcc.p1 ${OBJECTDIR}/src/pin_manager.p1 ${OBJECTDIR}/src/eeprom.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/src/app_device_keyboard.p1.d ${OBJECTDIR}/src/main.p1.d ${OBJECTDIR}/src/usb_descriptors.p1.d ${OBJECTDIR}/src/usb_events.p1.d ${OBJECTDIR}/usb/src/app_button_matrix.p1.d ${OBJECTDIR}/usb/src/app_page_selector.p1.d ${OBJECTDIR}/usb/src/usb_device.p1.d ${OBJECTDIR}/usb/src/usb_device_cdc.p1.d ${OBJECTDIR}/usb/src/usb_device_generic.p1.d ${OBJECTDIR}/usb/src/usb_device_hid.p1.d ${OBJECTDIR}/src/device_config.p1.d ${OBJECTDIR}/src/mcc.p1.d ${OBJECTDIR}/src/pin_manager.p1.d ${OBJECTDIR}/src/eeprom.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/src/app_device_keyboard.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/usb_descriptors.p1 ${OBJECTDIR}/src/usb_events.p1 ${OBJECTDIR}/usb/src/app_button_matrix.p1 ${OBJECTDIR}/usb/src/app_page_selector.p1 ${OBJECTDIR}/usb/src/usb_device.p1 ${OBJECTDIR}/usb/src/usb_device_cdc.p1 ${OBJECTDIR}/usb/src/usb_device_generic.p1 ${OBJECTDIR}/usb/src/usb_device_hid.p1 ${OBJECTDIR}/src/device_config.p1 ${OBJECTDIR}/src/mcc.p1 ${OBJECTDIR}/src/pin_manager.p1
+OBJECTFILES=${OBJECTDIR}/src/app_device_keyboard.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/usb_descriptors.p1 ${OBJECTDIR}/src/usb_events.p1 ${OBJECTDIR}/usb/src/app_button_matrix.p1 ${OBJECTDIR}/usb/src/app_page_selector.p1 ${OBJECTDIR}/usb/src/usb_device.p1 ${OBJECTDIR}/usb/src/usb_device_cdc.p1 ${OBJECTDIR}/usb/src/usb_device_generic.p1 ${OBJECTDIR}/usb/src/usb_device_hid.p1 ${OBJECTDIR}/src/device_config.p1 ${OBJECTDIR}/src/mcc.p1 ${OBJECTDIR}/src/pin_manager.p1 ${OBJECTDIR}/src/eeprom.p1
 
 # Source Files
-SOURCEFILES=src/app_device_keyboard.c src/main.c src/usb_descriptors.c src/usb_events.c usb/src/app_button_matrix.c usb/src/app_page_selector.c usb/src/usb_device.c usb/src/usb_device_cdc.c usb/src/usb_device_generic.c usb/src/usb_device_hid.c src/device_config.c src/mcc.c src/pin_manager.c
+SOURCEFILES=src/app_device_keyboard.c src/main.c src/usb_descriptors.c src/usb_events.c usb/src/app_button_matrix.c usb/src/app_page_selector.c usb/src/usb_device.c usb/src/usb_device_cdc.c usb/src/usb_device_generic.c usb/src/usb_device_hid.c src/device_config.c src/mcc.c src/pin_manager.c src/eeprom.c
 
 
 CFLAGS=
@@ -184,6 +184,13 @@ ${OBJECTDIR}/src/pin_manager.p1: src/pin_manager.c  nbproject/Makefile-${CND_CON
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"usb/inc" -I"inc" -I"mcc_generated_files" -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c90 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/src/pin_manager.p1 src/pin_manager.c 
 	@${FIXDEPS} ${OBJECTDIR}/src/pin_manager.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/src/eeprom.p1: src/eeprom.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/eeprom.p1.d 
+	@${RM} ${OBJECTDIR}/src/eeprom.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"usb/inc" -I"inc" -I"mcc_generated_files" -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c90 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/src/eeprom.p1 src/eeprom.c 
+	@${FIXDEPS} ${OBJECTDIR}/src/eeprom.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 else
 ${OBJECTDIR}/src/app_device_keyboard.p1: src/app_device_keyboard.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/src" 
@@ -275,6 +282,13 @@ ${OBJECTDIR}/src/pin_manager.p1: src/pin_manager.c  nbproject/Makefile-${CND_CON
 	@${RM} ${OBJECTDIR}/src/pin_manager.p1 
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"usb/inc" -I"inc" -I"mcc_generated_files" -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c90 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/src/pin_manager.p1 src/pin_manager.c 
 	@${FIXDEPS} ${OBJECTDIR}/src/pin_manager.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/eeprom.p1: src/eeprom.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/eeprom.p1.d 
+	@${RM} ${OBJECTDIR}/src/eeprom.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -I"usb/inc" -I"inc" -I"mcc_generated_files" -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c90 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/src/eeprom.p1 src/eeprom.c 
+	@${FIXDEPS} ${OBJECTDIR}/src/eeprom.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 
