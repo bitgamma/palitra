@@ -9,7 +9,6 @@
         <itemPath>inc/app_device_keyboard.h</itemPath>
         <itemPath>inc/app_page_selector.h</itemPath>
         <itemPath>inc/fixed_address_memory.h</itemPath>
-        <itemPath>inc/io_mapping.h</itemPath>
         <itemPath>inc/mcc.h</itemPath>
         <itemPath>inc/pin_manager.h</itemPath>
         <itemPath>inc/system_config.h</itemPath>
@@ -46,8 +45,8 @@
         <itemPath>src/main.c</itemPath>
         <itemPath>src/usb_descriptors.c</itemPath>
         <itemPath>src/usb_events.c</itemPath>
-        <itemPath>usb/src/app_button_matrix.c</itemPath>
-        <itemPath>usb/src/app_page_selector.c</itemPath>
+        <itemPath>src/app_button_matrix.c</itemPath>
+        <itemPath>src/app_page_selector.c</itemPath>
         <itemPath>src/device_config.c</itemPath>
         <itemPath>src/mcc.c</itemPath>
         <itemPath>src/pin_manager.c</itemPath>
