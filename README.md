@@ -1,7 +1,4 @@
 # Palette
-A small companion to graphic tablets for image editing
-
-## Introduction
 
 Palette is a simple USB device which is thought to be placed on the side of a graphic tablet while doing image editing in order to have easy access to the most frequently used shortcuts. Of course it can be used in other contexts as well.
 
