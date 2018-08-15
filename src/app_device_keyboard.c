@@ -275,7 +275,7 @@ static void APP_KeyboardUpdateInputReport() {
     if (keyboard.keyIndex < 0) {
         memcpy(_input, emptyReport, sizeof(inputReport));
     } else {
-        EEPROM_Read(&_input[1], (uint8_t)((APP_PageSelectorGetIndex() * 9) + (keyboard.keyIndex * 7)), 7);
+        EEPROM_Read(&_input[1], (uint8_t)((APP_PageSelectorGetIndex() * 9 * 7) + (keyboard.keyIndex * 7)), 7);
         _input[0] = _input[1]; _input[1] = 0x00;
     }    
 }
