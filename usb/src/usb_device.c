@@ -1466,7 +1466,7 @@ void USBCtrlEPAllowDataStage(void)
     {
         //Prepare EP0 OUT to receive the first OUT data packet in the data stage sequence.
         pBDTEntryEP0OutNext->CNT = USB_EP0_BUFF_SIZE;
-        pBDTEntryEP0OutNext->ADR = ConvertToPhysicalAddress(&CtrlTrfData);
+        pBDTEntryEP0OutNext->ADR = ConvertToPhysicalAddress(CtrlTrfData);
         pBDTEntryEP0OutNext->STAT.Val = _DAT1|(_DTSEN & _DTS_CHECKING_ENABLED);
         pBDTEntryEP0OutNext->STAT.Val |= _USIE;
     }   
@@ -1483,7 +1483,7 @@ void USBCtrlEPAllowDataStage(void)
 
 	    //Cnt should have been initialized by responsible request owner (ex: by
 	    //using the USBEP0SendRAMPtr() or USBEP0SendROMPtr() API function).
-		pBDTEntryIn[0]->ADR = ConvertToPhysicalAddress(&CtrlTrfData);
+		pBDTEntryIn[0]->ADR = ConvertToPhysicalAddress(CtrlTrfData);
 		pBDTEntryIn[0]->STAT.Val = _DAT1|(_DTSEN & _DTS_CHECKING_ENABLED);
         pBDTEntryIn[0]->STAT.Val |= _USIE;
     }     
@@ -1519,8 +1519,10 @@ static void USBConfigureEndpoint(uint8_t EPNum, uint8_t direction)
     //Compute a pointer to the even BDT entry corresponding to the
     //EPNum and direction values passed to this function.
     handle = (volatile BDT_ENTRY*)&BDT[EP0_OUT_EVEN]; //Get address of start of BDT
+#pragma warning disable 373
     handle += EP(EPNum,direction,0u);     //Add in offset to the BDT of interest
-    
+#pragma warning enable 373
+
     handle->STAT.UOWN = 0;  //mostly redundant, since USBStdSetCfgHandler() 
     //already cleared the entire BDT table
 
@@ -1853,7 +1855,7 @@ static void USBCtrlTrfRxService(void)
     if(outPipes[0].wCount.Val > 0)
     {
         pBDTEntryEP0OutNext->CNT = USB_EP0_BUFF_SIZE;
-        pBDTEntryEP0OutNext->ADR = ConvertToPhysicalAddress(&CtrlTrfData);
+        pBDTEntryEP0OutNext->ADR = ConvertToPhysicalAddress(CtrlTrfData);
         if(pBDTEntryEP0OutCurrent->STAT.DTS == 0)
         {
             pBDTEntryEP0OutNext->STAT.Val = _DAT1|(_DTSEN & _DTS_CHECKING_ENABLED);
@@ -1963,7 +1965,7 @@ static void USBStdSetCfgHandler(void)
 	}
 
     //clear the alternate interface settings
-    memset((void*)&USBAlternateInterface,0x00,USB_MAX_NUM_INT);
+    memset((void*)USBAlternateInterface,0x00,USB_MAX_NUM_INT);
 
     //Stop trying to reset ping pong buffer pointers
     USBPingPongBufferReset = 0;
@@ -2149,7 +2151,7 @@ static void USBStdGetStatusHandler(void)
 
     if(inPipes[0].info.bits.busy == 1)
     {
-        inPipes[0].pSrc.bRam = (uint8_t*)&CtrlTrfData;        // Set Source
+        inPipes[0].pSrc.bRam = (uint8_t*)CtrlTrfData;        // Set Source
         inPipes[0].info.bits.ctrl_trf_mem = USB_EP0_RAM;      // Set memory type
         inPipes[0].wCount.v[0] = 2;                           // Set data count
     }//end if(...)
@@ -2355,7 +2357,7 @@ static void USBCtrlEPService(void)
     {
 		//Point to the EP0 OUT buffer of the buffer that arrived
         #if defined (_PIC14E) || defined(__18CXX) || defined(__XC8)
-            pBDTEntryEP0OutCurrent = (volatile BDT_ENTRY*)&BDT[(USTATcopy.Val & USTAT_EP_MASK)>>1];
+            pBDTEntryEP0OutCurrent = (volatile BDT_ENTRY*)&BDT[(uint8_t)((USTATcopy.Val & USTAT_EP_MASK)>>1)];
         #elif defined(__C30__) || defined(__C32__) || defined __XC16__
             pBDTEntryEP0OutCurrent = (volatile BDT_ENTRY*)&BDT[(USTATcopy.Val & USTAT_EP_MASK)>>2];
         #else
@@ -2575,7 +2577,7 @@ static void USBCtrlTrfInHandler(void)
     //evidently completed successfully.
     if(USBDeviceState == ADR_PENDING_STATE)
     {
-        U1ADDR = (SetupPkt.bDevADR & 0x7F);
+        U1ADDR = (uint8_t)(SetupPkt.bDevADR & 0x7F);
         if(U1ADDR != 0u)
         {
             USBDeviceState=ADDRESS_STATE;

@@ -1922,7 +1922,7 @@ uint8_t USBGetTicksSinceSuspendEnd(void);
             DESC_CONFIG_WORD(0x0022),       // Total length of data for this cfg
     </code>
 */
-#define DESC_CONFIG_WORD(a) (a&0xFF),((a>>8)&0xFF)
+#define DESC_CONFIG_WORD(a) (a&0xFF), ((a>>8)&0xFF)
 
 /* The DESC_CONFIG_uint32_t() macro is implemented for convenience.  Since the
     configuration descriptor array is a uint8_t array, each entry needs to be a

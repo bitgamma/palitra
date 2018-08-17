@@ -166,8 +166,6 @@ please contact mla_licensing@microchip.com
 #define USER_SET_REPORT_HANDLER USBHIDCBSetReportHandler	
 #define USB_DEVICE_HID_IDLE_RATE_CALLBACK(reportID, newIdleRate)    USBHIDCBSetIdleRateHandler(reportID, newIdleRate)
 
-#define CDC_COMM_IN_EP_SIZE 255 //TODO: check if needed
-
 /** DEFINITIONS ****************************************************/
 
 #endif //USBCFG_H

@@ -269,7 +269,7 @@ typedef union
     #define EP15_IN_EVEN    62
     #define EP15_IN_ODD     63
 
-    #define EP(ep,dir,pp) (4*ep+2*dir+pp)
+    #define EP(ep,dir,pp) ((uint8_t)(4*ep+2*dir+pp))
 
     #if defined (__18CXX) || defined(__C30__) || defined __XC16__ || (__XC8)
         #if (defined(__dsPIC33E__) || defined (__PIC24E__))

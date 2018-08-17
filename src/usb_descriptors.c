@@ -121,7 +121,7 @@ sizeof(sd002),USB_DESCRIPTOR_STRING,
 //Array of configuration descriptors
 const uint8_t *const USB_CD_Ptr[]=
 {
-    (const uint8_t *const)&configDescriptor1
+    (const uint8_t *const)configDescriptor1
 };
 
 //Array of string descriptors

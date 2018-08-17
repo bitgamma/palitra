@@ -168,7 +168,7 @@ void USBCheckHIDRequest(void)
                 if(USBActiveConfiguration == 1)
                 {
                     USBEP0SendROMPtr(
-                        (const uint8_t*)&configDescriptor1 + 18,		//18 is a magic number.  It is the offset from start of the configuration descriptor to the start of the HID descriptor.
+                        (const uint8_t*)configDescriptor1 + 18,		//18 is a magic number.  It is the offset from start of the configuration descriptor to the start of the HID descriptor.
                         sizeof(USB_HID_DSC)+3,
                         USB_EP0_INCLUDE_ZERO);
                 }

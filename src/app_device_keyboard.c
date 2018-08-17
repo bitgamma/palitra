@@ -437,7 +437,7 @@ void USBHIDCBSetReportHandler(void)
     /* Prepare to receive the keyboard LED state data through a SET_REPORT
      * control transfer on endpoint 0.  The host should only send 1 byte,
      * since this is all that the report descriptor allows it to send. */
-    USBEP0Receive((uint8_t*)&CtrlTrfData, USB_EP0_BUFF_SIZE, USBHIDCBSetReportComplete);
+    USBEP0Receive((uint8_t*)CtrlTrfData, USB_EP0_BUFF_SIZE, USBHIDCBSetReportComplete);
 }
 
 

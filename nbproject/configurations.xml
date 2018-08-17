@@ -20,11 +20,9 @@
         <itemPath>usb/inc/usb_ch9.h</itemPath>
         <itemPath>usb/inc/usb_common.h</itemPath>
         <itemPath>usb/inc/usb_device.h</itemPath>
-        <itemPath>usb/inc/usb_device_cdc.h</itemPath>
         <itemPath>usb/inc/usb_device_generic.h</itemPath>
         <itemPath>usb/inc/usb_device_hid.h</itemPath>
         <itemPath>usb/inc/usb_device_local.h</itemPath>
-        <itemPath>usb/inc/usb_device_midi.h</itemPath>
         <itemPath>usb/inc/usb_hal.h</itemPath>
         <itemPath>usb/inc/usb_hal_local.h</itemPath>
         <itemPath>usb/inc/usb_hal_pic18.h</itemPath>
@@ -54,7 +52,6 @@
       </logicalFolder>
       <logicalFolder name="f1" displayName="usb" projectFiles="true">
         <itemPath>usb/src/usb_device.c</itemPath>
-        <itemPath>usb/src/usb_device_cdc.c</itemPath>
         <itemPath>usb/src/usb_device_generic.c</itemPath>
         <itemPath>usb/src/usb_device_hid.c</itemPath>
       </logicalFolder>
@@ -109,8 +106,7 @@
         <property key="asmlist" value="true"/>
         <property key="define-macros" value=""/>
         <property key="disable-optimizations" value="false"/>
-        <property key="extra-include-directories"
-                  value="usb\inc;inc;mcc_generated_files"/>
+        <property key="extra-include-directories" value="usb\inc;inc"/>
         <property key="favor-optimization-for" value="-speed,+space"/>
         <property key="identifier-length" value="255"/>
         <property key="local-generation" value="false"/>
@@ -121,7 +117,7 @@
         <property key="optimization-debug" value="false"/>
         <property key="optimization-invariant-enable" value="false"/>
         <property key="optimization-invariant-value" value="16"/>
-        <property key="optimization-level" value="-O0"/>
+        <property key="optimization-level" value="-O1"/>
         <property key="optimization-speed" value="false"/>
         <property key="optimization-stable-enable" value="false"/>
         <property key="preprocess-assembler" value="true"/>
@@ -130,7 +126,7 @@
         <property key="use-iar" value="false"/>
         <property key="verbose" value="false"/>
         <property key="warning-level" value="-3"/>
-        <property key="what-to-do" value="ignore"/>
+        <property key="what-to-do" value="require"/>
       </HI-TECH-COMP>
       <HI-TECH-LINK>
         <property key="additional-options-checksum" value=""/>
@@ -148,10 +144,10 @@
         <property key="code-model-rom" value=""/>
         <property key="create-html-files" value="false"/>
         <property key="data-model-ram" value=""/>
-        <property key="data-model-size-of-double" value="32"/>
-        <property key="data-model-size-of-double-gcc" value="no-short-double"/>
-        <property key="data-model-size-of-float" value="32"/>
-        <property key="data-model-size-of-float-gcc" value="no-short-float"/>
+        <property key="data-model-size-of-double" value="24"/>
+        <property key="data-model-size-of-double-gcc" value="short-double"/>
+        <property key="data-model-size-of-float" value="24"/>
+        <property key="data-model-size-of-float-gcc" value="short-float"/>
         <property key="display-class-usage" value="false"/>
         <property key="display-hex-usage" value="false"/>
         <property key="display-overall-usage" value="true"/>
@@ -185,7 +181,6 @@
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
