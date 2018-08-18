@@ -72,8 +72,8 @@ const uint8_t configDescriptor1[]={
     0,                      // Alternate Setting Number
     2,                      // Number of endpoints in this intf
     HID_INTF,               // Class code
-    BOOT_INTF_SUBCLASS,     // Subclass code
-    HID_PROTOCOL_KEYBOARD,     // Protocol code
+    0,     // Subclass code
+    0,     // Protocol code
     0,                      // Interface string index
 
     /* HID Class-Specific Descriptor */
@@ -90,7 +90,7 @@ const uint8_t configDescriptor1[]={
     USB_DESCRIPTOR_ENDPOINT,    //Endpoint Descriptor
     HID_EP | _EP_IN,            //EndpointAddress
     _INTERRUPT,                       //Attributes
-    DESC_CONFIG_WORD(8),        //size
+    DESC_CONFIG_WORD(9),        //size
     0x01,                        //Interval
 
     /* Endpoint Descriptor */
@@ -98,7 +98,7 @@ const uint8_t configDescriptor1[]={
     USB_DESCRIPTOR_ENDPOINT,    //Endpoint Descriptor
     HID_EP | _EP_OUT,            //EndpointAddress
     _INTERRUPT,                       //Attributes
-    DESC_CONFIG_WORD(8),        //size
+    DESC_CONFIG_WORD(9),        //size
     0x01                        //Interval
 
 };
@@ -117,6 +117,58 @@ sizeof(sd001),USB_DESCRIPTOR_STRING,
 const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[7];}sd002={ // 13
 sizeof(sd002),USB_DESCRIPTOR_STRING,
 {'P','a','l','e','t','t','e'}};
+
+//Class specific descriptor - HID Keyboard
+const struct{uint8_t report[HID_RPT01_SIZE];}hid_rpt01={
+{   0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
+    0x09, 0x06,                    // USAGE (Keyboard)
+    0xa1, 0x01,                    // COLLECTION (Application)
+    0x85, 0x01,                    //   REPORT ID 1
+    0x05, 0x07,                    //   USAGE_PAGE (Keyboard)
+    0x19, 0xe0,                    //   USAGE_MINIMUM (Keyboard LeftControl)
+    0x29, 0xe7,                    //   USAGE_MAXIMUM (Keyboard Right GUI)
+    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
+    0x25, 0x01,                    //   LOGICAL_MAXIMUM (1)
+    0x75, 0x01,                    //   REPORT_SIZE (1)
+    0x95, 0x08,                    //   REPORT_COUNT (8)
+    0x81, 0x02,                    //   INPUT (Data,Var,Abs)
+    0x95, 0x01,                    //   REPORT_COUNT (1)
+    0x75, 0x08,                    //   REPORT_SIZE (8)
+    0x81, 0x03,                    //   INPUT (Cnst,Var,Abs)
+    0x95, 0x05,                    //   REPORT_COUNT (5)
+    0x75, 0x01,                    //   REPORT_SIZE (1)
+    0x05, 0x08,                    //   USAGE_PAGE (LEDs)
+    0x19, 0x01,                    //   USAGE_MINIMUM (Num Lock)
+    0x29, 0x05,                    //   USAGE_MAXIMUM (Kana)
+    0x91, 0x02,                    //   OUTPUT (Data,Var,Abs)
+    0x95, 0x01,                    //   REPORT_COUNT (1)
+    0x75, 0x03,                    //   REPORT_SIZE (3)
+    0x91, 0x03,                    //   OUTPUT (Cnst,Var,Abs)
+    0x95, 0x06,                    //   REPORT_COUNT (6)
+    0x75, 0x08,                    //   REPORT_SIZE (8)
+    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
+    0x25, 0x65,                    //   LOGICAL_MAXIMUM (101)
+    0x05, 0x07,                    //   USAGE_PAGE (Keyboard)
+    0x19, 0x00,                    //   USAGE_MINIMUM (Reserved (no event indicated))
+    0x29, 0x65,                    //   USAGE_MAXIMUM (Keyboard Application)
+    0x81, 0x00,                    //   INPUT (Data,Ary,Abs)
+    0xc0,                          //   END COLLECTION
+    0x06, 0x00, 0xFF,              // Usage Page = 0xFF00 (Vendor Defined Page 1)
+    0x09, 0x01,                    // Usage (Vendor Usage 1)        
+    0xA1, 0x01,                    // Collection (Application)
+    0x85, 0x02,                    //   REPORT ID 2
+    0x19, 0x08,                    //      Usage Minimum 
+    0x29, 0x08,                    //      Usage Maximum   //8 input usages total (0x01 to 0x08)
+    0x15, 0x00,                    //      Logical Minimum (data bytes in the report may have minimum value = 0x00)
+    0x26, 0xff, 0x00,              //      Logical Maximum (data bytes in the report may have maximum value = 0x00FF = unsigned 255)
+    0x75, 0x08,                    //      Report Size: 8-bit field size
+    0x95, 0x08,                    //      Report Count: Make sixty-four 8-bit fields (the next time the parser hits an "Input", "Output", or "Feature" item)
+    0x81, 0x00,                    //      Input (Data, Array, Abs): Instantiates input packet fields based on the above report size, count, logical min/max, and usage.
+    0x19, 0x08,                    //      Usage Minimum 
+    0x29, 0x08,                    //      Usage Maximum 	//8 output usages total (0x01 to 0x08)
+    0x91, 0x00,                    //      Output (Data, Array, Abs): Instantiates output packet fields.  Uses same report size and count as "Input" fields, since nothing new/different was specified to the parser since the "Input" item.
+    0xc0}                          // End Collection
+};
 
 //Array of configuration descriptors
 const uint8_t *const USB_CD_Ptr[]=
