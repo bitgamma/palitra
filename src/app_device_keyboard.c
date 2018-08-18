@@ -35,6 +35,15 @@ please contact mla_licensing@microchip.com
 
 #include "eeprom.h"
 
+#define HID_REPORT_KEYBOARD 1
+#define HID_REPORT_CONFIG 2
+
+#define HID_CMD_READ 0
+#define HID_CMD_WRITE 1
+
+#define APP_KEYBOARD_VALIDATE_ADDR(p, k) ((p < APP_PAGE_COUNT) && (k < APP_BUTTON_MATRIX_SIZE))
+#define APP_KEYBOARD_VALIDATE_ABS_ADDR(p, k) ((uint8_t)((p * APP_BUTTON_MATRIX_SIZE * 7) + (k * 7)))
+
 /* This creates a storage type for all of the information required to track the
  * current state of the keyboard. */
 typedef struct
@@ -43,6 +52,7 @@ typedef struct
     USB_HANDLE lastOUTTransmission;
     int8_t oldKeyIndex;
     int8_t keyIndex;
+    uint8_t pendingConfigResponseSize;
 } KEYBOARD;
 
 // *****************************************************************************
@@ -52,15 +62,10 @@ typedef struct
 // *****************************************************************************
 static KEYBOARD keyboard;
 
-#if !defined(KEYBOARD_INPUT_REPORT_DATA_BUFFER_ADDRESS_TAG)
-    #define KEYBOARD_INPUT_REPORT_DATA_BUFFER_ADDRESS_TAG
-#endif
 static uint8_t inputReport[HID_INT_IN_EP_SIZE] KEYBOARD_INPUT_REPORT_DATA_BUFFER_ADDRESS_TAG;
-
-#if !defined(KEYBOARD_OUTPUT_REPORT_DATA_BUFFER_ADDRESS_TAG)
-    #define KEYBOARD_OUTPUT_REPORT_DATA_BUFFER_ADDRESS_TAG
-#endif
 static volatile uint8_t outputReport[HID_INT_OUT_EP_SIZE] KEYBOARD_OUTPUT_REPORT_DATA_BUFFER_ADDRESS_TAG;
+
+static uint8_t cmdResponse[HID_INT_IN_EP_SIZE-1];
 
 // *****************************************************************************
 // *****************************************************************************
@@ -83,13 +88,21 @@ static signed int OldSOFCount;
 // *****************************************************************************
 // *****************************************************************************
 
+static inline void APP_KeyboardReadShortcut(uint8_t page, uint8_t idx, uint8_t* output) {
+    EEPROM_Read(output, APP_KEYBOARD_VALIDATE_ABS_ADDR(page, idx), 7);    
+}
+
+static inline void APP_KeyboardWriteShortcut(uint8_t page, uint8_t idx, uint8_t* input) {
+    EEPROM_Write(input, APP_KEYBOARD_VALIDATE_ABS_ADDR(page, idx), 7);    
+}
+
 static void APP_KeyboardUpdateInputReport() {
-    inputReport[0] = 1;
+    inputReport[0] = HID_REPORT_KEYBOARD;
     
     if (keyboard.keyIndex < 0) {
         for(uint8_t i = 1; i < sizeof(inputReport); i++) inputReport[i] = 0;
     } else {
-        EEPROM_Read(&inputReport[2], (uint8_t)((APP_PageSelectorGetIndex() * 9 * 7) + (keyboard.keyIndex * 7)), 7);
+        APP_KeyboardReadShortcut(APP_PageSelectorGetIndex(), (uint8_t)keyboard.keyIndex, &inputReport[2]);
         inputReport[1] = inputReport[2]; inputReport[2] = 0x00;
     }    
 }
@@ -102,6 +115,8 @@ void APP_KeyboardInit(void)
     
     keyboard.keyIndex = -1;
     keyboard.oldKeyIndex = -1;
+    
+    keyboard.pendingConfigResponseSize = 0;
 
     //Set the default idle rate to 500ms (until the host sends a SET_IDLE request to change it to a new value)
     keyboardIdleRate = 500;
@@ -121,11 +136,47 @@ void APP_KeyboardInit(void)
     keyboard.lastOUTTransmission = HIDRxPacket(HID_EP, (uint8_t *)outputReport, sizeof(outputReport) );
 }
 
+void APP_KeyboardCheckPress(signed int TimeDeltaMilliseconds) {
+    bool needToSendNewReportPacket;
+
+    keyboard.keyIndex = APP_ButtonMatrixGetIndex();
+
+    //Check to see if the new packet contents are somehow different from the most
+    //recently sent packet contents.
+    needToSendNewReportPacket = (bool) (keyboard.keyIndex != keyboard.oldKeyIndex);
+
+    //Check if the host has set the idle rate to something other than 0 (which is effectively "infinite").
+    //If the idle rate is non-infinite, check to see if enough time has elapsed since
+    //the last packet was sent, and it is time to send a new repeated packet or not.
+    if(keyboardIdleRate != 0)
+    {
+        //Check if the idle rate time limit is met.  If so, need to send another HID input report packet to the host
+        if(TimeDeltaMilliseconds >= keyboardIdleRate)
+        {
+            needToSendNewReportPacket = true;
+        }
+    }
+
+    //Now send the new input report packet, if it is appropriate to do so (ex: new data is
+    //present or the idle rate limit was met).
+    if(needToSendNewReportPacket == true)
+    {
+        //Save the old input report packet contents.  We do this so we can detect changes in report packet content
+        //useful for determining when something has changed and needs to get re-sent to the host when using
+        //infinite idle rate setting.
+        keyboard.oldKeyIndex = keyboard.keyIndex;
+
+        APP_KeyboardUpdateInputReport();
+
+        /* Send the 9 byte packet over USB to the host. */
+        keyboard.lastINTransmission = HIDTxPacket(HID_EP, inputReport, 9);
+        OldSOFCount = LocalSOFCount;    //Save the current time, so we know when to send the next packet (which depends in part on the idle rate setting)
+    }    
+}
+
 void APP_KeyboardTasks(void)
 {
     signed int TimeDeltaMilliseconds;
-    unsigned char i;
-    bool needToSendNewReportPacket;
 
     /* If the USB device isn't configured yet, we can't really do anything
      * else since we don't have a host to talk to.  So jump back to the
@@ -141,9 +192,6 @@ void APP_KeyboardTasks(void)
      * thus just continue back to the start of the while loop. */
     if( USBIsDeviceSuspended() == true )
     {
-        //Check if we should assert a remote wakeup request to the USB host,
-        //when the user presses the pushbutton.
-
         return;
     }
     
@@ -173,58 +221,23 @@ void APP_KeyboardTasks(void)
         OldSOFCount = LocalSOFCount - 5000;
     }
 
-
     /* Check if the IN endpoint is busy, and if it isn't check if we want to send
      * keystroke data to the host. */
     if(HIDTxHandleBusy(keyboard.lastINTransmission) == false)
     {
-        keyboard.keyIndex = APP_ButtonMatrixGetIndex();
-
-        //Check to see if the new packet contents are somehow different from the most
-        //recently sent packet contents.
-        needToSendNewReportPacket = (bool) (keyboard.keyIndex != keyboard.oldKeyIndex);
-
-        //Check if the host has set the idle rate to something other than 0 (which is effectively "infinite").
-        //If the idle rate is non-infinite, check to see if enough time has elapsed since
-        //the last packet was sent, and it is time to send a new repeated packet or not.
-        if(keyboardIdleRate != 0)
-        {
-            //Check if the idle rate time limit is met.  If so, need to send another HID input report packet to the host
-            if(TimeDeltaMilliseconds >= keyboardIdleRate)
-            {
-                needToSendNewReportPacket = true;
-            }
+        if (keyboard.pendingConfigResponseSize > 0) {
+            inputReport[0] = HID_REPORT_CONFIG;
+            memcpy(&inputReport[1], cmdResponse, keyboard.pendingConfigResponseSize);
+            keyboard.lastINTransmission = HIDTxPacket(HID_EP, inputReport, (uint8_t)(keyboard.pendingConfigResponseSize + 1));
+            keyboard.pendingConfigResponseSize = 0;
+        } else {
+            APP_KeyboardCheckPress(TimeDeltaMilliseconds);
         }
+    }
 
-        //Now send the new input report packet, if it is appropriate to do so (ex: new data is
-        //present or the idle rate limit was met).
-        if(needToSendNewReportPacket == true)
-        {
-            //Save the old input report packet contents.  We do this so we can detect changes in report packet content
-            //useful for determining when something has changed and needs to get re-sent to the host when using
-            //infinite idle rate setting.
-            keyboard.oldKeyIndex = keyboard.keyIndex;
-            
-            APP_KeyboardUpdateInputReport();
-                    
-            /* Send the 8 byte packet over USB to the host. */
-            keyboard.lastINTransmission = HIDTxPacket(HID_EP, inputReport, sizeof(inputReport));
-            OldSOFCount = LocalSOFCount;    //Save the current time, so we know when to send the next packet (which depends in part on the idle rate setting)
-        }
-
-    }//if(HIDTxHandleBusy(keyboard.lastINTransmission) == false)
-
-
-    /* Check if any data was sent from the PC to the keyboard device.  Report
-     * descriptor allows host to send 1 byte of data.  Bits 0-4 are LED states,
-     * bits 5-7 are unused pad bits.  The host can potentially send this OUT
-     * report data through the HID OUT endpoint (EP1 OUT), or, alternatively,
-     * the host may try to send LED state information by sending a SET_REPORT
-     * control transfer on EP0.  See the USBHIDCBSetReportHandler() function. */
     if(HIDRxHandleBusy(keyboard.lastOUTTransmission) == false)
     {
         APP_KeyboardProcessOutputReport();
-
         keyboard.lastOUTTransmission = HIDRxPacket(HID_EP, (uint8_t *)outputReport, sizeof(outputReport));
     }
     
@@ -233,16 +246,26 @@ void APP_KeyboardTasks(void)
 
 static void APP_KeyboardProcessOutputReport(void)
 {
-
+    if(outputReport[0] == HID_REPORT_CONFIG) {
+        switch (outputReport[1]) {
+            case HID_CMD_READ:
+                if(APP_KEYBOARD_VALIDATE_ADDR(outputReport[2], outputReport[3])) {
+                  memcpy(cmdResponse, &outputReport[1], 3);
+                  APP_KeyboardReadShortcut(outputReport[2], outputReport[3], &cmdResponse[2]);
+                }
+                break;
+            case HID_CMD_WRITE:
+                if(APP_KEYBOARD_VALIDATE_ADDR(outputReport[2], outputReport[3])) {
+                  APP_KeyboardWriteShortcut(outputReport[2], outputReport[3], (uint8_t*)&outputReport[4]);
+                }                
+                break;
+        }
+    }
 }
 
 static void USBHIDCBSetReportComplete(void)
 {
-    /* 1 byte of LED state data should now be in the CtrlTrfData buffer.  Copy
-     * it to the OUTPUT report buffer for processing */
-    //outputReport.value = CtrlTrfData[1];
-
-    /* Process the OUTPUT report. */
+    memcpy(outputReport, CtrlTrfData, sizeof(outputReport));
     APP_KeyboardProcessOutputReport();
 }
 

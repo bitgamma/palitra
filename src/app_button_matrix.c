@@ -2,7 +2,7 @@
 
 static int8_t keyIndex;
 
-int8_t APP_ButtonMatrixGetIndex() {
+inline int8_t APP_ButtonMatrixGetIndex() {
     return keyIndex;
 }
 

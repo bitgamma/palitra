@@ -5,7 +5,7 @@
 
 #define APP_BUTTON_MATRIX_SIZE 9
 
-int8_t APP_ButtonMatrixGetIndex();
+inline int8_t APP_ButtonMatrixGetIndex();
 void APP_ButtonMatrixScan(void);
 void APP_ButtonMatrixInit(void);
 

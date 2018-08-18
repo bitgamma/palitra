@@ -3,7 +3,7 @@
 static uint8_t pageIndex;
 static bool waitsKeyRelease;
 
-uint8_t APP_PageSelectorGetIndex() {
+inline uint8_t APP_PageSelectorGetIndex() {
     return pageIndex;
 }
 
