@@ -8,7 +8,7 @@ There is currently one prototype built on veroboard, but the device can be made 
 
 ## TODO
 
-1) Make a cross-platform program to configure the device (Java + libusb?)
+1) Make a cross-platform program to configure the device (Electron + node-hid)
 2) Design product apperance, special care must be taken to make the buttons pleasant to use
 3) Draw schematics
 4) Draw PCB
