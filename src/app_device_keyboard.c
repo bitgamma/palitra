@@ -35,8 +35,8 @@ please contact mla_licensing@microchip.com
 
 #include "eeprom.h"
 
-#define HID_REPORT_KEYBOARD 1
-#define HID_REPORT_CONFIG 2
+#define HID_REPORT_CONFIG 1
+#define HID_REPORT_KEYBOARD 2
 
 #define HID_CMD_READ 0
 #define HID_CMD_WRITE 1
@@ -251,7 +251,8 @@ static void APP_KeyboardProcessOutputReport(void)
             case HID_CMD_READ:
                 if(APP_KEYBOARD_VALIDATE_ADDR(outputReport[2], outputReport[3])) {
                   memcpy(cmdResponse, &outputReport[1], 3);
-                  APP_KeyboardReadShortcut(outputReport[2], outputReport[3], &cmdResponse[2]);
+                  APP_KeyboardReadShortcut(outputReport[2], outputReport[3], &cmdResponse[3]);
+                  keyboard.pendingConfigResponseSize = 10;
                 }
                 break;
             case HID_CMD_WRITE:
@@ -290,8 +291,3 @@ void USBHIDCBSetIdleRateHandler(uint8_t reportID, uint8_t newIdleRate)
         keyboardIdleRate = newIdleRate;
     }
 }
-
-
-/*******************************************************************************
- End of File
-*/
