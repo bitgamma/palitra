@@ -124,7 +124,7 @@ const struct{uint8_t report[HID_RPT01_SIZE];}hid_rpt01={
     0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
     0x09, 0x06,                    // USAGE (Keyboard)
     0xa1, 0x01,                    // COLLECTION (Application)
-    0x85, 0x02,                    //   REPORT ID 2
+    0x85, 0x01,                    //   REPORT ID 2
     0x05, 0x07,                    //   USAGE_PAGE (Keyboard)
     0x19, 0xe0,                    //   USAGE_MINIMUM (Keyboard LeftControl)
     0x29, 0xe7,                    //   USAGE_MAXIMUM (Keyboard Right GUI)
@@ -157,7 +157,7 @@ const struct{uint8_t report[HID_RPT01_SIZE];}hid_rpt01={
     0x06, 0x00, 0xFF,              // Usage Page = 0xFF00 (Vendor Defined Page 1)
     0x09, 0x01,                    // Usage (Vendor Usage 1)        
     0xA1, 0x01,                    // Collection (Application)
-    0x85, 0x01,                    //   REPORT ID 1
+    0x85, 0x02,                    //   REPORT ID 1
     0x19, 0x03,                    //      Usage Minimum 
     0x29, 0x0A,                    //      Usage Maximum   //10 input usages total (0x01 to 0x0A)
     0x15, 0x00,                    //      Logical Minimum (data bytes in the report may have minimum value = 0x00)

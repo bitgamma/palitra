@@ -35,8 +35,8 @@ please contact mla_licensing@microchip.com
 
 #include "eeprom.h"
 
-#define HID_REPORT_CONFIG 1
-#define HID_REPORT_KEYBOARD 2
+#define HID_REPORT_KEYBOARD 1
+#define HID_REPORT_CONFIG 2
 
 #define HID_CMD_READ 0
 #define HID_CMD_WRITE 1
