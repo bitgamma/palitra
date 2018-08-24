@@ -6,11 +6,16 @@ The project is based around a PIC18F14K50 chip because it supports USB (using an
 
 There is currently one prototype built on veroboard, but the device can be made much smaller with a custom PCB design.
 
+## Schematics
+
+These are the current schematics
+
+![Schematics](hw/palette-schematics.jpg)
+
 ## TODO
 
-1) Make a cross-platform program to configure the device (Electron + node-hid)
+1) Improve page selection by using a button per page
 2) Design product apperance, special care must be taken to make the buttons pleasant to use
-3) Draw schematics
-4) Draw PCB
-5) Measure and improve power usage
-6) Manufacturing
+3) Draw PCB
+4) Measure and improve power usage
+5) Manufacturing
