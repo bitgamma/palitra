@@ -8,10 +8,9 @@ There is currently one prototype built on veroboard, but the device can be made 
 
 ## TODO
 
-1) Make the device composite and expose an interface for shortcut configuration (beside the already existing HID keyboard)
-2) Make a cross-platform program to configure the device (Java + libusb?)
-3) Design product apperance, special care must be taken to make the buttons pleasant to use
-4) Draw schematics
-5) Draw PCB
-6) Measure and improve power usage
-7) Manufacturing
+1) Make a cross-platform program to configure the device (Electron + node-hid)
+2) Design product apperance, special care must be taken to make the buttons pleasant to use
+3) Draw schematics
+4) Draw PCB
+5) Measure and improve power usage
+6) Manufacturing
