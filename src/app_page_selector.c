@@ -7,44 +7,44 @@ inline uint8_t APP_PageSelectorGetIndex() {
     return pageIndex;
 }
 
-static void APP_PageSelectorNext(void) {
+static void APP_PageSelectorMakeInput(void) {
     switch (pageIndex) {
         case 0:
-            pageIndex = 1;
-            LED_1_SetLow();
-            LED_2_SetHigh();
+            PAGE_SEL_1_SetDigitalInput();
             break;
         case 1:
-            pageIndex = 2;
-            LED_2_SetLow();
-            LED_3_SetHigh();
+            PAGE_SEL_2_SetDigitalInput();
             break;
         case 2:
-            pageIndex = 3;
-            LED_3_SetLow();
-            LED_4_SetHigh();
+            PAGE_SEL_3_SetDigitalInput();
             break;
         case 3:
-            pageIndex = 0;
-            LED_4_SetLow();
-            LED_1_SetHigh();
+            PAGE_SEL_4_SetDigitalInput();
             break;
     }
 }
+
 void APP_PageSelectorUpdate(void) {
-    if (!SWT_IN_GetValue()) {
-        if (!waitsKeyRelease) {
-            APP_PageSelectorNext();
-            waitsKeyRelease = true;
-        }
-    } else {
-        waitsKeyRelease = false;
+    if (pageIndex != 0 && !PAGE_SEL_1_GetValue()) {
+        APP_PageSelectorMakeInput();
+        pageIndex = 0;
+        PAGE_SEL_1_SetDigitalOutput();
+    } else if (pageIndex != 1 && !PAGE_SEL_2_GetValue()) {
+        APP_PageSelectorMakeInput();
+        pageIndex = 1;
+        PAGE_SEL_2_SetDigitalOutput();        
+    } else if (pageIndex != 2 && !PAGE_SEL_3_GetValue()) {
+        APP_PageSelectorMakeInput();
+        pageIndex = 2;
+        PAGE_SEL_3_SetDigitalOutput();               
+    } else if (pageIndex != 3 && !PAGE_SEL_4_GetValue()) {
+        APP_PageSelectorMakeInput();
+        pageIndex = 3;
+        PAGE_SEL_4_SetDigitalOutput();
     }
 }
 
 void APP_PageSelectorInit(void) {
     pageIndex = 0;
-    waitsKeyRelease = false;
-    LED_1_SetHigh();
+    PAGE_SEL_1_SetDigitalOutput();
 }
-
