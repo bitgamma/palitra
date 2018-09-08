@@ -8,9 +8,7 @@ There is currently one prototype built on veroboard. I am waiting for the PCB to
 
 ## Schematics
 
-These are the current schematics (also available under hw/palette.dch (DipTrace)
-
-![Schematics](hw/palette-schematics.jpg)
+The schematics are available under hw/palette.dch (DipTrace)
 
 ## PCB
 
