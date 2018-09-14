@@ -1,0 +1,486 @@
+@font-face {
+  font-family: "WildYouth";
+  src: url("./fonts/WildYouth.woff") format("woff"),
+  url("./fonts/WildYouth.woff") format("woff");
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+  color: rgb(17, 35, 44);
+  font-size: .9em;
+  line-height: 1.3em;
+  font-family: 'Work Sans', serif;
+  font-weight: 200;
+  scroll-behavior: smooth;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  font: inherit;
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:hover, a:visited, a:link, a:active {
+  text-decoration: none;
+}
+
+input[disabled="disabled"], input[disabled="disabled"]:hover {
+  opacity: 0.7;
+}
+
+.group:before, .group:after {
+  content: " ";
+  display: table;
+}
+.group:after {
+  clear: both;
+}
+.group {
+  zoom: 1;
+}
+
+.app__header {
+  width: 95%;
+  margin: .7em auto;
+}
+
+.app__logo-link {
+  float: left;
+  width: 10%;
+}
+
+.app__logo-img {
+  width: 55px;
+}
+
+.app__mobile-menu-link {
+  display: none;
+}
+
+.app__menu {
+  float: right;
+  width: 55%;
+}
+
+.app__menu-item {
+  width: 25%;
+  float: left;
+  text-align: right;
+  padding: 1em 0 0 0;
+  box-sizing: border-box;
+  text-transform: uppercase;
+}
+
+.app__effect-link {
+  padding: .5em;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.app__menu-item-link, .app__menu-item-link > span {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+}
+
+.app__menu-item-link:before, .app__menu-item-link:after {
+  content: '';
+  position: absolute;
+  transition: transform .5s ease;
+}
+
+.app__effect-link:before, .app__effect-link:after {
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgb(26, 103, 89);
+}
+
+.app__effect-link:before {
+   bottom: 0;
+   transform:  translateX(-100%);
+}
+
+.app__effect-link:after {
+   top: 0;
+   transform:  translateX(100%);
+}
+
+.app__effect-link:hover:before, .app__effect-link:hover:after {
+  transform:  translateX(0);
+}
+
+.app__main-content-container {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.55)), url("./img/main_bg.jpg");
+  min-height: 480px;
+  background-size: 1700px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.app__logo {
+  width: 150px;
+  font-size: 3em;
+  display: block;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 2.3em 0 1.5em 0;
+}
+
+.app__heading {
+  font-family: "WildYouth", "Work Sans";
+  font-size: 3em;
+  font-weight: bold;
+  padding: 0 0 1em 0;
+  display: inline-block;
+}
+
+.app__subheading {
+  text-align: center;
+  font-size: 1.7em;
+}
+
+.app__keyboard-section-container {
+  background: rgb(17, 35, 44);
+  color: white;
+  padding: 5em 0 3em 0;
+}
+
+.app__keyboard-description {
+  padding: 0 0 2em 0;
+  margin: 0 auto;
+  width: 90%;
+  font-size: 1.2em;
+  line-height: 1.6em;
+  text-align: center;
+}
+
+.app__palitra-keyboard-container {
+  padding: 4em 0;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.app__palitra-keyboard-img-container {
+  width: 50%;
+  float: left;
+}
+
+.app__palitra-keyboard-img {
+  width: 100%;
+  display: block;
+}
+
+.app__palitra-keyboard-text-container {
+  float: right;
+  width: 50%;
+  padding: .5em 2.5% 3em 0;
+  box-sizing: border-box;
+  font-weight: bold;
+}
+
+.app__palitra-keyboard-text {
+  font-size: 1.1em;
+  line-height: 1.8em;
+  padding: 3em 0 1em 0;
+}
+
+.app__palitra-keyboard-text span {
+  padding-bottom: 1em;
+  display: block;
+}
+
+.app__palitra-app-container {
+  padding: 3% 10%;
+  box-sizing: border-box;
+  background: rgb(250, 250, 250);
+}
+
+.app__palitra-app-text-container {
+  float: left;
+  width: 55%;
+  padding: 6em 0 0 2.5%;
+  box-sizing: border-box;
+  font-weight: bold;
+
+}
+
+.app__palitra-app-img-container {
+  width: 35%;
+  float: right;
+}
+
+.app__palitra-app-img {
+  width: 100%;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.app__docs-container {
+  color: white;
+  background: rgb(26, 103, 89);
+  box-sizing: border-box;
+  padding: 2.5% 10%;
+}
+
+.app__palitra-docs-img-container {
+  float: left;
+  width: 31%;
+}
+
+.app__docs-link {
+  color: rgb(17, 35, 44);
+}
+
+.app__palitra-docs-text-container {
+  float: right;
+  width: 60%;
+  text-align: center;
+  line-height: 1.8em;
+}
+
+.app__palitra-docs-text {
+  font-size: 1.1em;
+  font-weight: bold;
+  padding: 1em 0;
+}
+
+.app__contact-container {
+  width: 80%;
+  margin: 5em auto;
+}
+
+.app__contacts-element-container {
+  float: left;
+  width: 33.333%;
+  text-align: center;
+}
+
+.app__contacts-img {
+  height: 80px;
+  display: block;
+  margin: 0 auto;
+}
+
+.app__contacts-link {
+  font-weight: bold;
+  color: rgb(26, 103, 89);
+  padding: 3em 0 0  0;
+  font-size: 1em;
+  display: block;
+}
+
+.app__bottom-container {
+  background: rgb(17, 35, 44);
+  display: block;
+  color: white;
+  padding: 2% 15%;
+}
+
+@media (min-width: 100px) and (max-width: 1000px) {
+  .app__header {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .app__logo-link {
+    width: 30%;
+    padding: 0 0 2% 5%;
+    box-sizing: border-box;
+  }
+
+  .app__logo-img {
+    width: 40px;
+  }
+
+  .app__mobile-menu-link {
+    display: inherit;
+    width: 50%;
+    float: right;
+    padding: 0 5% 2% 0;
+    box-sizing: border-box;
+  }
+
+  .app__mobile-menu-img {
+    width: 40px;
+    float: right;
+  }
+
+  .app__menu {
+    background: rgb(17, 35, 44);
+    clear: both;
+    color: white;
+    float: none;
+    width: 100%;
+    margin: 5em 0 0 0;
+    padding: 1em 0;
+    font-size: .85em;
+    max-height: 100%;
+    transition-property: max-height;
+    transition-duration: 1s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    overflow: hidden;
+  }
+
+  .app__mobile-hide {
+    padding: 0;
+    max-height: 0;
+  }
+
+  .app__effect-link:before, .app__effect-link:after {
+    color: rgb(26, 103, 89);
+  }
+
+  .app__menu-item {
+    float: none;
+    width: 100%;
+    text-align: center;
+    padding: .5em 0;
+  }
+
+
+  .app__logo {
+    padding-top: 2em;
+  }
+
+  .app__subheading {
+    font-size: 1.4em;
+  }
+
+  .app__keyboard-description {
+    width: 90%;
+    font-size: 1em;
+  }
+
+  .app__palitra-keyboard-img-container {
+    float: none;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .app__palitra-keyboard-text-container {
+    float: none;
+    width: 100%;
+    font-size: .9em;
+    padding-top: 0;
+  }
+
+  .app__palitra-keyboard-text-container span {
+    line-height: 1.8em;
+  }
+
+  .app__palitra-app-img-container {
+    float: none;
+    width: 65%;
+    margin: 4em auto 0 auto;
+  }
+
+  .app__palitra-app-text-container {
+    float: none;
+    width: 100%;
+    font-size: .9em;
+    padding-top: 0;
+  }
+
+  .app__palitra-docs-img-container {
+    float: none;
+    width: 70%;
+    margin: 2em auto;
+  }
+
+  .app__palitra-docs-text-container {
+    float: none;
+    width: 100%;
+  }
+
+  .app__palitra-docs-text {
+    font-size: 1.2em;
+  }
+}
+
+@media (min-width: 1001px) and (max-width: 1400px) {
+  .app__menu {
+    width: 65%;
+  }
+
+  .app__palitra-keyboard-img-container {
+    float: none;
+    width: 60%;
+    margin: 0 auto;
+  }
+
+  .app__palitra-keyboard-text-container {
+    float: none;
+    width: 100%;
+    font-size: .9em;
+    padding-top: 0;
+  }
+
+  .app__palitra-app-img-container {
+    width: 40%;
+  }
+
+  .app__palitra-app-text-container {
+    width: 50%;
+    font-size: .9em;
+  }
+
+  .app__palitra-docs-img-container {
+    float: none;
+    width: 35%;
+    margin: 2em auto;
+  }
+
+  .app__palitra-docs-text-container {
+    float: none;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1650px) {
+  .app__main-content-container {
+    background-size: 100%;
+  }
+}

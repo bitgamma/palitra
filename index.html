@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Palitra | Speed up your retouch with no fuss</title>
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:200" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/app.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<div class="app__container">
+  <header class="app__header group">
+    <a href="index.html" class="app__logo-link">
+      <img src="./assets/img/logo.png" alt="Logo" class="app__logo-img">
+    </a>
+    <a href="#" id="mobile-menu" class="app__mobile-menu-link group"><img src="./assets/img/menu.png" alt="Menu" class="app__mobile-menu-img"></a>
+    <ul class="app__menu group app__mobile-hide" id="menu">
+      <li class="app__menu-item"><a href="#palitra" class="app__menu-item-link app__effect-link">What is Palitra?</a></li>
+      <li class="app__menu-item"><a href="#palitra-app" class="app__menu-item-link app__effect-link">Palitra App</a></li>
+      <li class="app__menu-item"><a href="#docs" class="app__menu-item-link app__effect-link">Docs</a></li>
+      <li class="app__menu-item"><a href="#contacts" class="app__menu-item-link app__effect-link">Contact</a></li>
+    </ul>
+  </header>
+  <section id="palitra" class="app__main-container-mobile-margin">
+    <div class="app__presentation-container">
+      <div class="app__main-content-container">
+        <img src="./assets/img/logo.png" alt="Logo" class="app__logo">
+        <h1 class="app__heading">Palitra</h1>
+        <p class="app__subheading">Speed up your retouch with no fuss</p>
+      </div>
+      <div class="app__keyboard-section-container">
+        <p class="app__keyboard-description">
+          If you do a lot of retouching, you notice that you spend a lot of time switching tools, changing tool size, zoom level etc. Of course, you know the shortcuts and you use a keyboard to do this. You also use a graphic tablet, which in most cases means your keyboard must be moved away from its usual place.
+          If like me, you are left-handed, you feel the pain even more when you need to activate certain shortcuts. Wouldn't it be nice to have a very small keyboard to be placed beside your graphic tablet and which allows activating the most useful shortcuts at the press of a single button?
+        </p>
+        <p class="app__keyboard-description">
+          This is the question I asked myself, and decided that yes, as a photographer I would love to have such a thing. I then remembered, that photography is my hobby but I am first and foremost a software and hardware developer. So Palitra is born. The aim of Palitra was to create a tool that gets the job done
+          in the easiest way. It is not fancy, but it really speeds up retouching. I know I cannot work without it anymore. It also will not break your bank, I am using simple and widely available components and aim to make it affordable for any photographer, from the amateur to the pro. The final price will be in
+          the $20 to $30 range, depending on the final production costs.
+        </p>
+      </div>
+      <div class="app__palitra-keyboard-container group">
+        <div class="app__palitra-keyboard-img-container">
+          <img src="./assets/img/palitra_keyboard.png" alt="Palitra Keyboard" class="app__palitra-keyboard-img">
+        </div>
+        <div class="app__palitra-keyboard-text-container">
+          <p class="app__palitra-keyboard-text">
+            <span>This is the Palitra hardware. Well, at least its PCB. I have already working prototypes of this device and am now designing an enclosure to make it a robust and nice product. Palitra has 9 buttons in a 3x3 configuration. These buttons are configurable with a shortcut each. To allow for more shortcuts,
+Palitra also has 4 buttons (each with a LED indicator) at the top, allowing selecting a logical page. This means the device can have 36 shortcuts configured at the same time, 9 per each page. Palitra is powered by USB and is recognized by the system as a keyboard, so there is no driver to install. Your
+favourite retouching software does not need any plug-in or modification to work with Palitra, since again it is just a keyboard from the point of view of the system it is attached to.
+            </span>
+            <span>
+              In the future a battery powered, Bluetooth version of Palitra will be created too.
+            </span>
+          </p>
+        </div>
+      </div>
+  </section>
+  <section id="palitra-app" class="app__palitra-app-container group">
+    <div class="app__palitra-app-img-container">
+      <img src="./assets/img/palitra-app.jpg" alt="Palitra App" class="app__palitra-app-img">
+    </div>
+    <div class="app__palitra-app-text-container">
+      <p class="app__palitra-keyboard-text">Palitra comes with a configuration application which allows to personalize all shortcuts on the device, as well as display the current ones. The software is quite minimalistic at the moment but very easy to use. During the funding campaign development will proceed to add more features. Top priority is the
+        ability to create, import, export and share profiles, so that you can change all shortcuts of your Palitra at the same time by simply choosing the profile for the application you want to work in. The application will also be used to load eventual firmware upgrades to the device.</p>
+    </div>
+  </section>
+  <section id="docs" class="app__docs-container group">
+    <div class="app__palitra-docs-img-container">
+      <img src="./assets/img/palitra_web.png" alt="Docs" class="app__palitra-keyboard-img">
+    </div>
+    <div class="app__palitra-docs-text-container">
+      <p class="app__palitra-docs-text">Palitra firmware, configuration app, PCB, schematics and enclosure design will be released as opensource to <a href="https://github.com/bitgamma" class="app__docs-link">Github</a>. Infact, they already are, except the enclosure because it is still very much work in progress.</p>
+    </div>
+  </section>
+  <section id="contacts" class="app__contact-container group">
+    <div class="app__contacts-element-container">
+      <img src="./assets/img/email.png" alt="Email" class="app__contacts-img">
+      <a href="mailto:info@bitgamma.com" class="app__contacts-link">info@bitgamma.com</a>
+    </div>
+    <div class="app__contacts-element-container">
+      <img src="./assets/img/indiegogo-logo.png" alt="Indigogo" class="app__contacts-img">
+      <a href="#" class="app__contacts-link">Palitra Project</a>
+    </div>
+    <div class="app__contacts-element-container">
+      <img src="./assets/img/github.png" alt="Github" class="app__contacts-img">
+      <a href="https://github.com/bitgamma" class="app__contacts-link">Bitgamma</a>
+    </div>
+  </section>
+  <bottom class="app__bottom-container">
+    <small>&copy; 2018 Bitgamma OÜ</small>
+  </bottom>
+</div>
+<script src="./assets/app.js"></script>
+</body>
+</html>
