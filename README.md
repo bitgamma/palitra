@@ -1,6 +1,6 @@
-# Palette
+# Palitra
 
-Palette is a simple USB device which is thought to be placed on the side of a graphic tablet while doing image editing in order to have easy access to the most frequently used shortcuts. Of course it can be used in other contexts as well.
+Palitra is a simple USB device which is thought to be placed on the side of a graphic tablet while doing image editing in order to have easy access to the most frequently used shortcuts. Of course it can be used in other contexts as well.
 
 The project is based around a PIC18F14K50 chip because it supports USB (using an external crystal) and can be powered from 5v without external components. I also had a couple of them lying around, which made the choice obvious.
 
