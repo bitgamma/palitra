@@ -68,7 +68,7 @@
 
 // CONFIG3H
 #pragma config HFOFST = OFF    // HFINTOSC Fast Start-up bit->The system clock is held off until the HFINTOSC is stable.
-#pragma config MCLRE = ON    // MCLR Pin Enable bit->MCLR pin enabled; RA3 input pin disabled
+#pragma config MCLRE = OFF    // MCLR Pin Enable bit->MCLR pin enabled; RA3 input pin disabled
 
 // CONFIG4L
 #pragma config STVREN = ON    // Stack Full/Underflow Reset Enable bit->Stack full/underflow will cause Reset

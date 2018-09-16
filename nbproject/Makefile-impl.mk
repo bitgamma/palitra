@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=palette.X
+PROJECTNAME=palitra.X
 
 # Active Configuration
 DEFAULTCONF=default

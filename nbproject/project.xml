@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>palette</name>
+            <name>palitra</name>
             <creation-uuid>5e5f87e9-f999-44c1-a33d-5f6d342cf452</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>

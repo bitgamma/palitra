@@ -116,7 +116,7 @@ sizeof(sd001),USB_DESCRIPTOR_STRING,
 //Product string descriptor
 const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[7];}sd002={ // 13
 sizeof(sd002),USB_DESCRIPTOR_STRING,
-{'P','a','l','e','t','t','e'}};
+{'P','a','l','i','t','r','a'}};
 
 //Class specific descriptor - HID Keyboard
 const struct{uint8_t report[HID_RPT01_SIZE];}hid_rpt01={
