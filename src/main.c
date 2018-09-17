@@ -52,6 +52,8 @@
 #include "app_page_selector.h"
 #include "app_button_matrix.h"
 
+const uint16_t APP_FIRMWARE_VERSION APP_FIRMWARE_VERSION_TAG = 0x0105;
+
 void main(void)
 {
     // Initialize the device

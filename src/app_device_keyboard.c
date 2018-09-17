@@ -41,10 +41,11 @@ please contact mla_licensing@microchip.com
 #define HID_CMD_READ 0
 #define HID_CMD_WRITE 1
 #define HID_CMD_BOOTLOADER 2
+#define HID_CMD_VERSION 3
 
 #define HID_CMD_BOOTLOADER_KEY1 0xB0 
 #define HID_CMD_BOOTLOADER_KEY2 0x07
-#define BOOTLOADER_ADDRESS 0x30
+#define BOOTLOADER_ADDRESS 0x1C
 
 #define APP_KEYBOARD_VALIDATE_ADDR(p, k) ((p < APP_PAGE_COUNT) && (k < APP_BUTTON_MATRIX_SIZE))
 #define APP_KEYBOARD_VALIDATE_ABS_ADDR(p, k) ((uint8_t)((p * APP_BUTTON_MATRIX_SIZE * 7) + (k * 7)))
@@ -233,7 +234,7 @@ void APP_KeyboardTasks(void)
         if (keyboard.pendingConfigResponseSize > 0) {
             inputReport[0] = HID_REPORT_CONFIG;
             memcpy(&inputReport[1], cmdResponse, keyboard.pendingConfigResponseSize);
-            keyboard.lastINTransmission = HIDTxPacket(HID_EP, inputReport, (uint8_t)(keyboard.pendingConfigResponseSize + 1));
+            keyboard.lastINTransmission = HIDTxPacket(HID_EP, inputReport, 11);
             keyboard.pendingConfigResponseSize = 0;
         } else {
             APP_KeyboardCheckPress(TimeDeltaMilliseconds);
@@ -273,6 +274,12 @@ static void APP_KeyboardProcessOutputReport(void)
                     #endasm
                 }
                 break;
+            case HID_CMD_VERSION:
+                cmdResponse[0] = HID_CMD_VERSION;
+                cmdResponse[1] = (APP_FIRMWARE_VERSION >> 8) & 0xff;
+                cmdResponse[2] = APP_FIRMWARE_VERSION & 0xff;
+                keyboard.pendingConfigResponseSize = 3;
+                break;                
         }
     }
 }

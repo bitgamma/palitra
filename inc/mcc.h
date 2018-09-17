@@ -57,6 +57,8 @@
 
 #define _XTAL_FREQ  48000000
 
+extern const uint16_t APP_FIRMWARE_VERSION;
+
 /**
  * @Param
     none
