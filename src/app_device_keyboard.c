@@ -40,6 +40,11 @@ please contact mla_licensing@microchip.com
 
 #define HID_CMD_READ 0
 #define HID_CMD_WRITE 1
+#define HID_CMD_BOOTLOADER 2
+
+#define HID_CMD_BOOTLOADER_KEY1 0xB0 
+#define HID_CMD_BOOTLOADER_KEY2 0x07
+#define BOOTLOADER_ADDRESS 0x30
 
 #define APP_KEYBOARD_VALIDATE_ADDR(p, k) ((p < APP_PAGE_COUNT) && (k < APP_BUTTON_MATRIX_SIZE))
 #define APP_KEYBOARD_VALIDATE_ABS_ADDR(p, k) ((uint8_t)((p * APP_BUTTON_MATRIX_SIZE * 7) + (k * 7)))
@@ -259,6 +264,14 @@ static void APP_KeyboardProcessOutputReport(void)
                 if(APP_KEYBOARD_VALIDATE_ADDR(outputReport[2], outputReport[3])) {
                   APP_KeyboardWriteShortcut(outputReport[2], outputReport[3], (uint8_t*)&outputReport[4]);
                 }                
+                break;
+            case HID_CMD_BOOTLOADER:
+                if (outputReport[2] == HID_CMD_BOOTLOADER_KEY1 && outputReport[3] == HID_CMD_BOOTLOADER_KEY2){
+                    PIN_MANAGER_Initialize();
+                    #asm
+                        goto BOOTLOADER_ADDRESS;
+                    #endasm
+                }
                 break;
         }
     }
