@@ -6,6 +6,10 @@ The project is based around a PIC18F14K50 chip because it supports USB (using an
 
 There is currently one prototype built on veroboard. I am waiting for the PCB to be delivered from China
 
+## Compilation and installation
+
+The repository is an [MPLAB X](https://www.microchip.com/mplab/mplab-x-ide) project. Download the IDE and open the project to compile. Note that the firmware is meant to be loaded through the [bootloader](https://github.com/bitgamma/palitra-bootloader) and not through ICSP. This can be done through the [desktop application](https://github.com/bitgamma/palitra-desktop)
+
 ## Schematics
 
 The schematics are available under hw/palette.dch (DipTrace)
