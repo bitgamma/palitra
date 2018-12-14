@@ -18,6 +18,10 @@ The schematics are available under hw/palette.dch (DipTrace)
 
 The PCB is available in the hw/palette.dip file (DipTrace)
 
+## Enclosure
+
+The enclosure is composed of 3 STL files. They can be found in the hw folder
+
 ## TODO
 
 1) Measure and improve power usage
